@@ -1,0 +1,13 @@
+{
+  "name": "space-face",
+  "version": "0.1.0",
+  "description": "SpaceFace demo app",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-gh-pages": "^1.1.0",
+    "jshint-stylish": "^2.2.0",
+    "load-grunt-tasks": "^3.5.0"
+  }
+}

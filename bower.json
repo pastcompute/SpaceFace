@@ -1,0 +1,10 @@
+{
+  "name": "space-face",
+  "version": "0.1.0",
+  "description": "Space Face",
+  "dependencies": {
+    "underscore": "^1.8.3",
+    "requirejs": "^2.2.0",
+    "foundation-sites": "^6.2.3"
+  }
+}
