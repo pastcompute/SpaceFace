@@ -10,6 +10,7 @@ define([
   var MAX_ITEMS = 2;
 
   var API_COUNT = 0;
+  var orbitInit = false; // Work around stuff that just doesnt work as advertised
 
   // If there are less than 7 images, add to the image list then fetch one more
   // Not worh having a separate model for now.
@@ -21,17 +22,28 @@ define([
     console.log(obj, items);
     if (!_.isNull(obj)) {
       if (obj.media_type === "image") {
-        var inner = "<div style='width:500px;height:300px;background-color:#ff00ff;'><h3>Test</h3><p><a href='" + obj.url + "'>" + obj.title + "</a></p></div>";
+        var inner = "<div style='width:500px;height:300px;background-color:#ff00ff;'>" +
+                    "<h3>Test" + obj.title + "</h3>" +
+                    "<img src='" + obj.url + "'/></div>";
         console.log(inner);
         var elem = $("<li class='orbit-slide'>" + inner + "</li>");
         $('#orbit ul#image-list').append(elem);
         if (items === 0) {
           elem.addClass("is-active");
         }
-        $(".orbit-container").foundation();
       }
     }
-    if (items < MAX_ITEMS && API_COUNT < 3) {
+    var fin = false;
+    if (items < MAX_ITEMS) {
+      day = day.addDays(-1);
+      var result = {
+        url:"http://example.com/1/2/" + Math.floor(Math.random() * 9),
+        title:"Blahahahaa" + Math.floor(Math.random() * 1000000),
+        media_type: "image"
+      };
+      populateNewImage(result, day);
+    } else
+    if (items < MAX_ITEMS && API_COUNT < 5) {
       var uri = APOD_PREFIX + "&date=" + day.toString("yyyy-MM-dd");
       console.log(uri, API_COUNT);
       API_COUNT = API_COUNT + 1;
@@ -40,6 +52,13 @@ define([
         day = day.addDays(-1);
         populateNewImage(result, day);
       });
+    } else {
+      fin = true;
+    }
+    if (fin && !orbitInit) {
+      console.log("orbit init");
+      var elem = new Foundation.Orbit($('#orbit'), {'data-bullets':false, 'data-auto-play':false});
+      orbitInit = true;
     }
   }
 
@@ -55,9 +74,9 @@ define([
   return {
     exec : function() {
       console.log("app.exec");
-      $(document).foundation();
       $(".button").on("click", function(e) { e.preventDefault(); });
       $("#menu-about").on("click", function() { $("#about").show()});
+      // WTF does this break fucking everything // $(document).foundation();
       populateImages();
     }
   };

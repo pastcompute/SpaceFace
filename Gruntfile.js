@@ -55,6 +55,7 @@ module.exports = (function () {
                   '/foundation-sites/dist/plugins/foundation.util.motion.js',
                   '/foundation-sites/dist/plugins/foundation.util.keyboard.js',
                   '/foundation-sites/dist/plugins/foundation.util.timerAndImageLoader.js',
+                  '/motion-ui/dist/motion-ui.min.js',
                   '/jquery/dist/jquery.min.js',
                   '/jquery-validation/dist/jquery.validate.min.js',
                   '/what-input/what-input.min.js'
@@ -67,7 +68,9 @@ module.exports = (function () {
             nonull: true,
             flatten: true,
             filter: 'isFile',
-            src: '/foundation-sites/dist/foundation.min.css',
+            src: ['/foundation-sites/dist/foundation.min.css',
+                  '/motion-ui/dist/motion-ui.min.css'
+                  ],
             dest: 'www/css/'
           }
           ]
