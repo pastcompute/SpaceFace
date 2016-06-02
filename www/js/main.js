@@ -2,14 +2,7 @@
 require.config({
   paths: {
     jquery: '../js/vendor/jquery.min',
-    'jquery.dynatable': '../js/vendor/jquery.dynatable',
     foundation: '../js/vendor/foundation.min',
-    'foundation.abide': '../js/vendor/foundation.abide',
-    'foundation.orbit': '../js/vendor/foundation.orbit',
-    'foundation.orbit': '../js/vendor/foundation.util.touch',
-    'foundation.keyboard': '../js/vendor/foundation.util.keyboard',
-    'foundation.motion': '../js/vendor/foundation.util.motion',
-    'foundation.util.timerAndImageLoader': '../js/vendor/foundation.util.timerAndImageLoader',
     underscore: '../js/vendor/underscore-min',
     datejs: '../js/vendor/date.min'
   },
@@ -17,13 +10,10 @@ require.config({
     jquery: {
       exports: '$'
     },
-    'jquery.dynatable': ['jquery'],
     foundation: {
       deps: ['jquery'],
       exports: 'Foundation'
     },
-    'foundation.abide': ['foundation'],
-    'foundation.orbit': ['foundation'],
     underscore: {
       deps: ['jquery'],
       exports: '_'
