@@ -5,6 +5,7 @@
   "dependencies": {
     "underscore": "^1.8.3",
     "requirejs": "^2.2.0",
-    "foundation-sites": "^6.2.3"
+    "foundation-sites": "^6.2.3",
+    "DateJS": "datejs#^1.0.0-rc3"
   }
 }

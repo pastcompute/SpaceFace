@@ -8,3 +8,7 @@ and search the skies for faces!
 1. Go to https://pastcompute.github.io/SpaceFace/
 2. Pick an image from the NASA picture of the day list 
 4. Hit Search
+
+External dependencies:
+
+* NASA [APOD API](https://api.nasa.gov/api.html#apod) 

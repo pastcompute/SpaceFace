@@ -33,7 +33,8 @@ module.exports = (function () {
             expand: true,
             filter: 'isFile',
             src: ['/requirejs/require.js',
-                  '/underscore/underscore-min.js'
+                  '/underscore/underscore-min.js',
+                  '/DateJS/build/production/date.min.js'
                   ],
             dest: 'www/js/vendor/'
           }
@@ -49,6 +50,11 @@ module.exports = (function () {
             filter: 'isFile',
             src: ['/foundation-sites/dist/foundation.min.js',
                   '/foundation-sites/dist/plugins/foundation.abide.js',
+                  '/foundation-sites/dist/plugins/foundation.orbit.js',
+                  '/foundation-sites/dist/plugins/foundation.util.touch.js',
+                  '/foundation-sites/dist/plugins/foundation.util.motion.js',
+                  '/foundation-sites/dist/plugins/foundation.util.keyboard.js',
+                  '/foundation-sites/dist/plugins/foundation.util.timerAndImageLoader.js',
                   '/jquery/dist/jquery.min.js',
                   '/jquery-validation/dist/jquery.validate.min.js',
                   '/what-input/what-input.min.js'
