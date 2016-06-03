@@ -4,6 +4,7 @@ require.config({
     jquery: '../js/vendor/jquery.min',
     foundation: '../js/vendor/foundation.min',
     underscore: '../js/vendor/underscore-min',
+    galleria: '../galleria/galleria-1.4.2.min',
     datejs: '../js/vendor/date.min'
   },
   shim: {
@@ -11,6 +12,9 @@ require.config({
       exports: '$'
     },
     foundation: {
+      deps: ['jquery']
+    },
+    galleria: {
       deps: ['jquery']
     },
     underscore: {

@@ -7,6 +7,7 @@
     "requirejs": "^2.2.0",
     "foundation-sites": "^6.2.3",
     "DateJS": "datejs#^1.0.0-rc3",
-    "motion-ui": "^1.2.2"
+    "motion-ui": "^1.2.2",
+    "galleria": "http://galleria.io/static/galleria-1.4.2.zip"
   }
 }

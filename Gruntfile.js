@@ -40,6 +40,16 @@ module.exports = (function () {
           }
           ]
         },
+        galleria: {
+          files:[
+          {
+            cwd: 'bower_components/galleria',
+            src: ['**/*', '!galleria-1.4.2.js'],
+            expand: true,
+            dest: 'www/galleria'            
+          }
+          ]
+        },
         foundation: {
           files:[
           {
