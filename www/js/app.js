@@ -12,6 +12,14 @@ define([
   var carouselInit = false; // Work around stuff that just doesnt work as advertised
   var loadedItems = 0;
 
+  function randomColour() {
+    var colour = "#";
+    for (var i=0; i < 6; i++) {
+      colour = colour + Math.floor(Math.random()*15).toString(16);
+    }
+    return colour;
+  }
+
   // If there are less than 7 images, add to the image list then fetch one more
   // Not worh having a separate model for now.
   // Obj is a JSON with the following items:

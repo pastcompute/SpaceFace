@@ -11,8 +11,7 @@ require.config({
       exports: '$'
     },
     foundation: {
-      deps: ['jquery'],
-      exports: 'Foundation'
+      deps: ['jquery']
     },
     underscore: {
       deps: ['jquery'],
