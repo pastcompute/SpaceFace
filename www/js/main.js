@@ -3,6 +3,7 @@ require.config({
   paths: {
     jquery: '../js/vendor/jquery.min',
     foundation: '../js/vendor/foundation.min',
+    slick: '../js/vendor/slick.min',
     underscore: '../js/vendor/underscore-min',
     datejs: '../js/vendor/date.min'
   },
@@ -10,9 +11,11 @@ require.config({
     jquery: {
       exports: '$'
     },
+    slick: {
+      deps: ['jquery']
+    },
     foundation: {
-      deps: ['jquery'],
-      exports: 'Foundation'
+      deps: ['jquery']
     },
     underscore: {
       deps: ['jquery'],
