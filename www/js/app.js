@@ -28,13 +28,13 @@ define([
   function populateNewImage(obj, day)
   {
     var items = $('#carousel img').length;
-    console.log(obj, items);
+    // console.log(obj, items);
     if (!_.isNull(obj)) {
       if (obj.media_type === "image" && obj.url) {
         var frag = "<img src='" + obj.url + "' data-title='" + (obj.title || "") + "' data-description='" + (obj.explanation || "") + "' ></img>";
         if (obj.hdurl) { frag = "<a href='" + obj.hdurl + "'>" + frag + "</a>"; }
         frag = "<div>" + frag + "</div>";
-        console.log(obj, frag);
+        // console.log(obj, frag);
         var img = $(frag);
         $('#carousel').append(img);
         loadedItems ++;
@@ -43,13 +43,23 @@ define([
     var fin = false;
     if (loadedItems < MAX_ITEMS && API_COUNT < 5) {
       var uri = APOD_PREFIX + "&date=" + day.toString("yyyy-MM-dd");
-      console.log(uri, API_COUNT);
+      //console.log(uri, API_COUNT);
       API_COUNT = API_COUNT + 1;
-      $.getJSON(uri, function(result){
-        console.log(JSON.stringify(result));
+      var saved = window.localStorage.getItem(uri);
+      if (_.isNull(saved)) {
+        //console.log("Query API: " + uri);
+        $.getJSON(uri, function(result){
+          console.log(JSON.stringify(result));
+          window.localStorage.setItem(uri, JSON.stringify(result));
+          // Save data into browser cache, so we dont blow the anonymous API cap when testing
+          day = day.addDays(-1);
+          populateNewImage(result, day);
+        });
+      } else {
+        //console.log("Using cached data : " + saved);
         day = day.addDays(-1);
-        populateNewImage(result, day);
-      });
+        populateNewImage(JSON.parse(saved), day);
+      }
     } else {
       fin = true;
     }
@@ -71,16 +81,23 @@ define([
     populateNewImage(null, day.addDays(-1));
   }
 
+  function clearCache() {
+    window.localStorage.clear();
+    $("#main-feedback").html("<h3>Reload browser to fetch data from APOD.</h3>");
+    $("#main-feedback").show();
+  }
+
   return {
     exec : function() {
       console.log("app.exec");
 
       $(".button").on("click", function(e) { e.preventDefault(); });
       $("#menu-about").on("click", function() { $("#about").show()});
+      $("#mainBtn-clear").on("click", function() { clearCache(); });
 
       populateImages();
 
       $(document).foundation();
-      }
+    }
   };
 });
