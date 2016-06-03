@@ -4,7 +4,6 @@ define([
   'underscore',
   'datejs',
   'foundation',
-  'slick'
 ], function($,_) {
 
   var APOD_PREFIX = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
@@ -13,32 +12,25 @@ define([
   var carouselInit = false; // Work around stuff that just doesnt work as advertised
   var loadedItems = 0;
 
-  function randomColour() {
-    var colour = "#";
-    for (var i=0; i < 6; i++) {
-      colour = colour + Math.floor(Math.random()*15).toString(16);
-    }
-    return colour;
-  }
-  
   // If there are less than 7 images, add to the image list then fetch one more
   // Not worh having a separate model for now.
   // Obj is a JSON with the following items:
   // date, explanation, media_type E (video, image), title, url or hdurl, copyright, service_version
   function populateNewImage(obj, day)
   {
-    var items = $('.my-carousel div').length;
+    var items = $('#carousel ul#image-list li').length;
     console.log(obj, items);
     if (!_.isNull(obj)) {
       if (obj.media_type === "image") {
-        var randColour = randomColour();
-        var inner = "<div class='xyz' style='background-color:" + randColour + ";'>" +
-                    "<h3>Test" + obj.title + "</h3>" + obj.date; // +
-                    // "<img src='" + obj.url + "'/></div>";
-                    + "</div>";
+        var inner = "<div style='background-color:#ff00ff;'>" +
+                    "<h3>Test" + obj.title + "</h3>" + obj.date +
+                    "<img src='" + obj.url + "'/></div>";
         console.log(inner);
-        var elem = $(inner);
-        $('.my-carousel').append(elem);
+        var elem = $("<li>" + inner + "</li>");
+        $('#carousel ul#image-list').append(elem);
+        if (items === 0) {
+          elem.addClass("is-active");
+        }
         loadedItems ++;
       }
     }
@@ -69,16 +61,13 @@ define([
     }
     if (fin && !carouselInit) {
       console.log("Carousel init");
-      $(".my-carousel").slick({
-        adaptiveHeight:true
-      });
       carouselInit = true;
     }
   }
 
   // Try and load 7 days worth of APOD images, ignore video for now
   function populateImages() {
-    $('.my-carousel div').remove();
+    $('#carousel ul#image-list li').remove();
     loadedItems = 0;
     var day = Date.today();
     // Note, date needs to be in USA (or UTC?) time or you get server error on today in Australia
@@ -91,7 +80,7 @@ define([
       console.log("app.exec");
       $(".button").on("click", function(e) { e.preventDefault(); });
       $("#menu-about").on("click", function() { $("#about").show()});
-      //$(document).foundation();
+      $(document).foundation();
       populateImages();
     }
   };

@@ -34,20 +34,9 @@ module.exports = (function () {
             filter: 'isFile',
             src: ['/requirejs/require.js',
                   '/underscore/underscore-min.js',
-                  '/slick-carousel/slick/slick.min.js',
                   '/DateJS/build/production/date.min.js'
                   ],
             dest: 'www/js/vendor/'
-          },
-          {
-            cwd: 'bower_components/',
-            nonull: true,
-            flatten: true,
-            expand: true,
-            filter: 'isFile',
-            src: ['/slick-carousel/slick/slick.css'
-                  ],
-            dest: 'www/css/'
           }
           ]
         },
