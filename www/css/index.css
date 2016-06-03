@@ -6,4 +6,15 @@ meta.foundation-data-attribute-namespace {
   border-style:solid;
   border-color:black;
 }
- .galleria{ width: 600px; height: 300px; background: #000 }
+.galleria{
+  width: 100%;
+  height: 300px;
+  background: #000
+}
+ 
+ img.emoji {
+   height: 1em;
+   width: 1em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
+}

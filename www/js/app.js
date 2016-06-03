@@ -4,14 +4,17 @@ define([
   'underscore',
   'datejs',
   'foundation',
-  'galleria'
-], function($,_,x,y,Galleria) {
+  'galleria',
+  'facialmodel'
+], function($,_,x,y,Galleria,FacialModel) {
 
   var APOD_PREFIX = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
-  var MAX_ITEMS = 2;
+  var MAX_ITEMS = 8;
   var API_COUNT = 0;
   var carouselInit = false; // Work around stuff that just doesnt work as advertised
   var loadedItems = 0;
+
+  _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 
   function randomColour() {
     var colour = "#";
@@ -30,12 +33,11 @@ define([
     var items = $('#carousel img').length;
     // console.log(obj, items);
     if (!_.isNull(obj)) {
-      if (obj.media_type === "image" && obj.url) {
-        var frag = "<img src='" + obj.url + "' data-title='" + (obj.title || "") + "' data-description='" + (obj.explanation || "") + "' ></img>";
-        if (obj.hdurl) { frag = "<a href='" + obj.hdurl + "'>" + frag + "</a>"; }
-        frag = "<div>" + frag + "</div>";
-        // console.log(obj, frag);
-        var img = $(frag);
+      if (obj.media_type === "image" && obj.url && obj.hdurl) {
+        var fragment = _.template("<img src='{{url}}' data-title='{{title}}' data-description='{{desc}}'></img>");
+        var html = fragment({ url : obj.url, title : (obj.title || ""), desc: (obj.explanation || "") });
+        // console.log(html);
+        var img = $(html);
         $('#carousel').append(img);
         loadedItems ++;
       }
@@ -51,6 +53,9 @@ define([
         $.getJSON(uri, function(result){
           console.log(JSON.stringify(result));
           window.localStorage.setItem(uri, JSON.stringify(result));
+          // index to pass to the detector - because galleria seems to remove any data tag from the IMG
+          var key = "__" + result.url;
+          window.localStorage.setItem(key, result.hdurl);
           // Save data into browser cache, so we dont blow the anonymous API cap when testing
           day = day.addDays(-1);
           populateNewImage(result, day);
@@ -78,12 +83,12 @@ define([
     var day = Date.today();
     // Note, date needs to be in USA (or UTC?) time or you get server error on today in Australia
     // Easiest workaround is just subtract one at the start
-    populateNewImage(null, day.addDays(-1));
+    populateNewImage(null, day.addDays(-5));
   }
 
   function clearCache() {
     window.localStorage.clear();
-    $("#main-feedback").html("<h3>Reload browser to fetch data from APOD.</h3>");
+    $("#main-feedback").html("<p><i>Reload browser to fetch data from APOD.</i></p>");
     $("#main-feedback").show();
   }
 
@@ -95,9 +100,36 @@ define([
       $("#menu-about").on("click", function() { $("#about").show()});
       $("#mainBtn-clear").on("click", function() { clearCache(); });
 
-      populateImages();
+      var w = window.localStorage;
+      for (var i = 0; i < w.length; i++) {
+        console.log(w.key(i), w.getItem(w.key(i)));
+      }      
+      // return;
+      
+      populateImages(); // TODO: promisify this
+
+      var ready = false;
+      Galleria.ready(function(options) {
+        this.bind('image', function(e) {
+          if (!ready) {
+            $('#main-status').hide();
+            $("#mainBtn-detect").prop("disabled", false);
+            $("#mainBtn-detect").on("click", function() { 
+              var img = $('#carousel').data('galleria').getActiveImage();
+              var key = "__" + img.src;
+              var hdurl = window.localStorage.getItem(key);
+              console.log("Detect from : " + hdurl);
+              model.detect(hdurl); 
+           });
+          }
+          ready = true;
+          console.log('Now viewing ' + e.imageTarget.src);
+        });
+      });
 
       $(document).foundation();
-    }
+
+      var model = new FacialModel($("#main-feedback"), $("#main-error"));
+   }
   };
 });
