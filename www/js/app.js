@@ -44,6 +44,12 @@ define([
     $("#main-feedback").html("<p><i>Reload browser to fetch data from APOD.</i></p>");
     $("#main-feedback").show();
   }
+  
+  function userError(msg) {
+    if (_.isNull(msg)) { $("#main-error").hide(); return; }
+    $("#main-error").html(msg);
+    $("#main-error").show();    
+  }
 
   return {
     exec : function() {
@@ -57,19 +63,18 @@ define([
       for (var i = 0; i < w.length; i++) {
         console.log(w.key(i), w.getItem(w.key(i)));
       }
-     
+
       var imageModel = new CommonsImageModel("astronomy people");
       var promise = imageModel.fetch();
-      promise.catch(function(error) { 
-        console.warn("Unable to fetch commons query");
-        $("#main-error").html("<p><i>Unable to complete image query of commons.wikimedia.org</i></p>");
-        $("#main-error").show();
+      promise.catch(function(error) {
+        console.warn("Unable to fetch commons query", error);
+        userError("<i>Unable to complete image query of commons.wikimedia.org</i>");
       }).
       then(function(model) {
-        console.log(JSON.stringify(model.images));
-        populateImages(_.map(model.images, function(v) { return v; }));
+        // console.log(JSON.stringify(imageModel.images));
+        populateImages(_.map(imageModel.images, function(v) { return v; }));
       });
- 
+
       Galleria.loadTheme('galleria/themes/classic/galleria.classic.min.js');
       var ready = false;
       Galleria.ready(function(options) {
@@ -81,6 +86,9 @@ define([
             $("#mainBtn-detect").on("click", function() {
               var img = $('#carousel').data('galleria').getActiveImage();
               console.log(img.src);
+              $("#main-working").show();
+              $("#main-feedback").hide();
+              $("#main-error").hide();
               model.detect(img.src);
            });
           }
@@ -91,7 +99,20 @@ define([
 
       $(document).foundation();
 
-      var model = new FacialModel($("#main-feedback"), $("#main-error"));
+      var sad = twemoji.parse(twemoji.convert.fromCodePoint('1f633')); // :flushed:
+
+      var model = new FacialModel(
+        function(faces) {
+          $("#main-feedback").text('Detected ' + faces.length + ' face(s)');
+          $("#main-feedback").show();
+          $("#main-working").hide();
+        },
+        function(error) {
+          console.warn(error);
+          userError("Unable to process the image " + sad);
+          $("#main-error").show();
+          $("#main-working").hide();
+        });
    }
   };
 });

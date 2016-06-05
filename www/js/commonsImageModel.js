@@ -34,12 +34,13 @@ define([
     var args = {
       action: "query",
       generator: "search",
-      gsrnamespace: 6,  // This seems to mean, search for images only, although I'm having trouble tracking down the doco
+      gsrnamespace: 6,  // This seems to mean, search for images only, although I'm having trouble tracking down the doco. Also it turns up videos & OGGs
       gsrsearch: this.searchKey,
       gsrlimit: RESULT_LIMIT,
       gsroffset: (Math.random() * 500).toFixed(),
       prop: "imageinfo",
-      iiprop: "url",
+      iiprop: "url|mediatype",
+      iilimit: 1,
       iiurlwidth: THUMB_SIZE,
       format: "json"
     };
