@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cleartype" content="on">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1, minimum-scale=1, width=device-width">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <title>Space Face Finder</title>
+  <link rel="stylesheet" type="text/css" href="css/foundation.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <script src="https://twemoji.maxcdn.com/2/twemoji.min.js"></script>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">SpaceFace</li>
+        <li><a id="menu-about" data-open="modal-about">About</a></li>
+        <li><a id="menu-github" target="_blank" href="https://github.com/pastcompute/SpaceFace">Github</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row expanded">
+    <div class="small-4 large-2 columns">
+    </div>
+    <div class="small-6 large-8 columns end">
+      <h3>Can we find any faces?</h3>
+      <h4 style="font-size:0.9em">Images with "astronomy people" from commons.wikimedia <span id='main-status'><i>(please wait...)</i></span></h4>
+      <div class="row" style="margin-bottom:16px;">
+        <div class="galleria" id="carousel">Please wait...</div>
+      </div>
+      <div class="row expanded">
+        <button id="mainBtn-detect" class="success button" type="button" disabled>Detect</button>
+        <button id="mainBtn-clear" class="secondary button" type="button">Clear cache</button>
+        <span id="main-working" class="warning label" style="display:none;">Working...</span>
+        <span id="main-error" class="alert label" style="display:none;">Error...</span>
+      </div>
+      <div class="row">
+        <div class="small-8 large-8 columns end">
+          <div id="main-feedback" class="success callout" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="reveal" id="modal-about" data-reveal>
+    <h1>SpaceFace</h1>
+    <p class="lead">Suspend your disbelief!</p>
+    <p>Embrace our inner anthropocentrist and look to the skies for faces!</p>
+    <p>Created by <a href="https://twitter.com/pastcompute" target="_blank">@pastcompute</a></p>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <script src="https://cdn.jemsoft.io/monocular-javascript-sdk/sdk-0.1.0.js"></script>
+  <script type="text/javascript" src="js/vendor/require.js" data-main="js/main"></script>
+</body>
+</html>
