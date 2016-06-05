@@ -6,7 +6,7 @@ define([
   'foundation',
   'galleria',
   'facialmodel',
-  'CommonsImageModel'
+  'commonsImageModel'
 ], function($,_,x,y,Galleria,FacialModel,CommonsImageModel) {
 
   var loadedItems = 0;
