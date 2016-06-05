@@ -39,6 +39,7 @@ define([
       gsrlimit: RESULT_LIMIT,
       gsroffset: (Math.random() * 500).toFixed(),
       prop: "imageinfo",
+      // https://www.mediawiki.org/wiki/API:Imageinfo
       iiprop: "url|mediatype",
       iilimit: 1,
       iiurlwidth: THUMB_SIZE,
