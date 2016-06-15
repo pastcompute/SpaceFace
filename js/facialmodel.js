@@ -2,7 +2,8 @@
 define(['underscore'], function(_) {
 
   Monocular.initialize({
-    clientId: '9d70cd3ff37ad71708dcf21934bad5d4'
+    clientId: '9d70cd3ff37ad71708dcf21934bad5d4',
+    clientSecret: 'e070ba39b3645fb2b769c6635f3cd108fdb0610a',
   });
 
   function detect(image) {
