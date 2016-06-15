@@ -84,8 +84,6 @@ module.exports = (function () {
   };
 })();
 
+// npm install -g bower grunt-cli
+// bower install
 // npm install -g cordova
-// npm install -g bower
-// npm install grunt-cli -g
-// npm update
-// bower update

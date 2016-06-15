@@ -4,6 +4,7 @@
   "description": "SpaceFace demo app",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-bower-update": "^0.1.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-gh-pages": "^1.1.0",
